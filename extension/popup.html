@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="view-onboarding-step1" class="view">
+            <h1>👋 Привет!</h1>
+            <h2>Давай знакомиться</h2>
+            <div class="form-group">
+                <label>Как тебя зовут?</label>
+                <input type="text" id="ob-name" placeholder="Имя">
+            </div>
+            <button class="btn-primary" id="btn-next-step1">Далее</button>
+        </div>
+
+        <!-- VIEW 2: ONBOARDING STEP 2 (Details) -->
+        <div id="view-onboarding-step2" class="view">
+            <h2>Настройка профиля</h2>
+            <div class="form-group">
+                <label>Твой доход в месяц (₽)</label>
+                <input type="number" id="ob-income" placeholder="Доход...">
+            </div>
+            <div class="form-group">
+                <label>Лимит на импульсивные траты (₽/мес)</label>
+                <input type="number" id="ob-limit" placeholder="Лимит...">
+            </div>
+            <div class="form-group">
+                <label>Текущие накопления (₽)</label>
+                <input type="number" id="ob-assets" placeholder="Накопления...">
+            </div>
+            <div class="form-group">
+                <label>Откладываю в месяц (₽)</label>
+                <input type="number" id="ob-monthly-savings" placeholder="Сумма...">
+            </div>
+            <div class="form-group">
+                <label>Время охлаждения (минут)</label>
+                <input type="number" id="ob-delay" placeholder="60" value="60" min="1">
+            </div>
+
+            <div class="stop-list-section">
+                <div class="stop-list-actions">
+                    <div>
+                        <div class="stop-list-header">Запретные категории
+                            <span class="tooltip-icon"
+                                title="Отметьте, что нужно контролировать. Если ничего не выбрано, то функция выключена.">?</span>
+                        </div>
+                        <!--                    <div class="stop-list-desc">Отметьте, что нужно контролировать. <br> Если ничего не выбрано, то функция выключена.</div>-->
+                    </div>
+                    <div>
+                        <button id="set-select-all">Выбрать все</button>
+                        &nbsp;/&nbsp;
+                        <button id="set-clear-all">Снять все</button>
+                    </div>
+                </div>
+                <div class="stop-list-container" id="ob-stop-list"></div>
+
+                <button id="set-toggle-list" class="show-more-btn">
+                    <span id="set-toggle-text">Показать ещё...</span>
+                </button>
+            </div>
+
+            <div class="buttons-row" style="display: flex; gap: 10px;">
+                <button class="btn-secondary" id="btn-back-step1">Назад</button>
+                <button class="btn-primary" id="btn-start">Начать экономить</button>
+            </div>
+        </div>
+
+        <!-- VIEW 2: DASHBOARD -->
+        <div id="view-dashboard" class="view">
+            <div class="top-bar">
+                <div class="greeting">Привет, <span id="dash-name">User</span>!</div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="settings-btn" id="btn-history" title="История">📜</button>
+                    <button class="settings-btn" id="btn-settings" title="Настройки">⚙️</button>
+                </div>
+            </div>
+            <div class="stats-card">
+                <div class="stat-row">
+                    <span>Лимит на месяц:</span>
+                    <div class="stat-value" id="dash-limit">0 ₽</div>
+                </div>
+                <div class="stat-row">
+                    <span>Отложено сейчас:</span>
+                    <div class="stat-value" style="color: #000000;" id="dash-saved">0 ₽</div>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="dash-progress" style="width: 0%"></div>
+                </div>
+                <div style="font-size: 11px; color: #9ca3af; margin-top: 4px; text-align: right;">
+                    (Заполнено отложенными товарами)
+                </div>
+                <div class="stat-row" style="margin-top: 10px; border-top: 1px solid #eee; padding-top: 8px;">
+                    <span>Сэкономлено:</span>
+                    <span class="stat-value" style="color: #10b981;" id="dash-total-saved">0 ₽</span>
+                    <button id="btn-saved-details"
+                        style="background: none; border: none; cursor: pointer; color: #6b7280; font-size: 11px; text-decoration: underline; margin-left: 8px;">Подробнее</button>
+
+                </div>
+            </div>
+
+            <div class="cold-section">
+                <div class="cold-header">На охлаждении</div>
+                <div class="items-container" id="itemList"></div>
+                <div class="empty-placeholder" id="emptyState">Пусто. Ты молодец!</div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: SETTINGS -->
+        <div id="view-settings" class="view">
+            <div class="top-bar">
+                <div class="greeting">Настройки</div>
+                <button class="btn-icon" id="btn-back" title="Назад">✕</button>
+            </div>
+
+            <div class="form-group">
+                <label>Имя</label>
+                <input type="text" id="set-name">
+            </div>
+            <div class="form-group">
+                <label>Ваш доход (₽)</label>
+                <input type="number" id="set-income">
+            </div>
+            <div class="form-group">
+                <label>Ваш лимит (₽)</label>
+                <input type="number" id="set-limit">
+            </div>
+            <div class="form-group">
+                <label>Текущие накопления (₽)</label>
+                <input type="number" id="set-assets">
+            </div>
+            <div class="form-group">
+                <label>Откладываю в месяц (₽)</label>
+                <input type="number" id="set-monthly-savings">
+            </div>
+            <div class="form-group">
+                <label>Частота уведомлений (часов)</label>
+                <select id="set-notify-freq"
+                    style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 8px;">
+                    <option value="60">1 час</option>
+                    <option value="180">3 часа</option>
+                    <option value="360">6 часов</option>
+                    <option value="720">12 часов</option>
+                    <option value="1440">24 часа</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Время охлаждения (минут)</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="number" id="set-delay" min="1" style="flex:1">
+                    <button id="btn-open-rules" class="btn-secondary" style="width: auto; padding: 0 12px;"
+                        title="Настроить правила">📏</button>
+                </div>
+            </div>
+
+            <div class="stop-list-section">
+                <div class="stop-list-actions">
+                    <div>
+                        <div class="stop-list-header">Запретные категории</div>
+                    </div>
+                    <div>
+                        <button id="select-all">Выбрать все</button>
+                        &nbsp;/&nbsp;
+                        <button id="clear-all">Снять все</button>
+                    </div>
+                </div>
+                <div class="stop-list-container" id="set-stop-list"></div>
+
+                <button id="toggle-list" class="show-more-btn">
+                    <span id="toggle-text">Показать ещё...</span>
+                </button>
+            </div>
+
+            <button class="btn-primary" id="btn-save-settings" style="margin-bottom: 12px;">Сохранить</button>
+            <button class="btn-close" id="btn-logout">Выйти</button>
+        </div>
+    </div>
+    <!-- VIEW 5: HISTORY -->
+    <div id="view-history" class="view">
+        <div class="top-bar">
+            <div class="greeting">📜 История покупок</div>
+            <button class="settings-btn" id="btn-back-history" title="Назад">✕</button>
+        </div>
+        <div id="history-list" class="items-container"></div>
+        <div class="empty-placeholder" id="history-empty">История пуста</div>
+        <div id="history-list" class="items-container"></div>
+        <div class="empty-placeholder" id="history-empty">История пуста</div>
+    </div>
+
+    <!-- VIEW 6: SAVED DETAILS -->
+    <div id="view-saved-details" class="view">
+        <div class="top-bar">
+            <div class="greeting">💰 Сэкономлено</div>
+            <button class="settings-btn" id="btn-back-saved" title="Назад">✕</button>
+        </div>
+        <div id="saved-list" class="items-container"></div>
+        <div class="empty-placeholder" id="saved-empty">Список пуст</div>
+    </div>
+
+    <!-- VIEW 7: COOLING RULES -->
+    <div id="view-cooling-rules" class="view">
+        <div class="top-bar">
+            <div class="greeting">📏 Правила</div>
+            <button class="settings-btn" id="btn-back-rules" title="Назад">✕</button>
+        </div>
+
+        <div style="padding: 16px; border-bottom: 1px solid #eee;">
+            <h3 style="margin: 0 0 12px 0; font-size: 14px;">Добавить правило</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                <input type="number" id="rule-min" placeholder="От (₽)" style="width: 80px;">
+                <input type="number" id="rule-max" placeholder="До (₽)" style="width: 80px;">
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <input type="number" id="rule-delay" placeholder="Минут" style="flex: 1;">
+                <button id="btn-add-rule" class="btn-primary" style="width: auto; padding: 0 16px;">+</button>
+            </div>
+            <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">
+                Например: От 0 до 15000 — 1440 мин (сутки).
+            </div>
+        </div>
+
+        <div id="rules-list" class="items-container"></div>
+        <div class="empty-placeholder" id="rules-empty">Нет правил (используется общее время)</div>
+    </div>
+
+    <!-- VIEW 4: AI CHAT -->
+    <div id="view-chat" class="view">
+        <div class="top-bar">
+            <div class="greeting" style="font-size: 16px;">🧠 Наставник</div>
+            <button class="settings-btn" id="btn-close-chat">✕</button>
+        </div>
+
+        <div id="chat-product-info"
+            style="font-size: 13px; color: #6b7280; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #eee;">
+            Обсуждаем: <span id="chat-item-title" style="font-weight: 600;">Товар</span>
+        </div>
+
+        <div id="chat-messages"
+            style="height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; padding-right: 4px;">
+            <!-- Messages injected here -->
+            <div class="message bot">
+                Привет! Я ваш финансовый помощник. Секунду, изучаю товар...
+            </div>
+        </div>
+
+        <div class="chat-input-area" style="display: flex; gap: 8px;">
+            <input type="text" id="chat-input" placeholder="Напишите ответ..." style="flex: 1;">
+            <button id="btn-send-chat" class="btn-primary" style="width: auto; padding: 0 16px;">➤</button>
+        </div>
+    </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+.impulse-blocker-btn {
+    background-color: #2563eb !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 16px 32px !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    z-index: 9999 !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    transition: background-color 0.1s !important;
+    min-height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.impulse-blocker-btn:hover {
+    background-color: #3b82f6 !important;
+}
+
+.impulse-blocker-btn:active {
+    background-color: #1d4ed8 !important;
+    transform: translateY(1px);
+}
+
+/* Toast styles */
+.impulse-toast-overlay {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 2147483647;
+    font-family: system-ui, -apple-system, sans-serif;
+    animation: slideIn 0.3s ease-out;
+    max-width: 300px;
+    border-left: 4px solid #6366f1;
+}
+
+.impulse-toast-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #1f2937;
+}
+
+.impulse-toast-body {
+    font-size: 14px;
+    color: #4b5563;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+.impulse-blocker-btn-delayed {
+    background-color: #60a5fa !important;  /* Light blue (Tailwind blue-400) */
+    cursor: default !important;
+}
+
+.impulse-blocker-btn-delayed:hover {
+    background-color: #60a5fa !important; /* No hover effect change */
+}
